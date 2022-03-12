@@ -83,30 +83,41 @@ class MySubscribeCallback(SubscribeCallback):
     def message(self, pubnub, message):
         try:
             msg=message.message
+            print(Style.BRIGHT +Back.YELLOW+ Fore.RED + "\n[!] Request received :"
+                  +Style.RESET_ALL+Style.BRIGHT + Fore.CYAN + " "+msg+Style.RESET_ALL)
+            print(Style.RESET_ALL)
+
             msgbyte = msg.encode()  # utf-8 str to byte
             msgback = msgbyte[2:1070]  # slicing byte
             bytestr = base64.b64decode(msgback)  # utf-8 byte to base-64 byte
 
+            print(Style.BRIGHT + Fore.YELLOW + "[*] Decrypting text")
             ciphertext = bytestr[:768] # dividing bytes
             AesIV = bytestr[768:784]
             Authtag = bytestr[768:800]
             encryptedMsg = (ciphertext, AesIV, Authtag) # forming message
 
+            print(Style.BRIGHT + Fore.YELLOW + "[*] Converting text into image")
             imgbyte = decrypt_AES_GCM(encryptedMsg, secretKey) # decrypting message
+
+            print(Style.BRIGHT + Fore.YELLOW + "[*] Decoding request from image")
             msgdecode = lsb.convert_decode_byte2img(imgbyte) # decoding request from image pixels
 
-            print (Style.BRIGHT + Back.BLACK + Fore.YELLOW +"\n[+] Request from client :-")
-            print(Style.BRIGHT + Back.BLACK + Fore.WHITE +str(msgdecode))
-            print(Style.BRIGHT + Back.BLACK + Fore.GREEN +"[*] Fetching URLs")
+            print (Style.RESET_ALL+Style.BRIGHT +Back.RED+ Fore.YELLOW +"\n[+] Fetched request from client :"+
+                   Style.RESET_ALL+Style.BRIGHT + Fore.WHITE +" "+str(msgdecode))
+            print(Style.BRIGHT + Fore.YELLOW +"\n[*] Fetching URLs")
 
             response=self.get_url(scapy.Ether(msgdecode)) # call fetching url function
             self.send_response(str(response)) # sending response
+
 
         except Exception:
             pass
 
     def send_response(self,url): # sending response
-        print(Style.BRIGHT + Back.YELLOW + Fore.RED +"\n[+] Sending response: "+Style.BRIGHT + Back.BLACK + Fore.BLUE+ url +Style.BRIGHT + Back.BLACK + Fore.BLUE)
+        print(Style.RESET_ALL + Style.BRIGHT + "\n-------------------------------------------------------")
+        print(Style.BRIGHT + Back.WHITE + Fore.BLUE +"\n[+] Sending response:"+Style.RESET_ALL+Style.BRIGHT + Fore.GREEN+" "+ url +Style.RESET_ALL)
+        print(Style.RESET_ALL + Style.BRIGHT + "\n-------------------------------------------------------")
         pubnub.publish().channel("chan-1").message(url).pn_async(my_publish_callback)
 
 
