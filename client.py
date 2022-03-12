@@ -1,4 +1,6 @@
 import base64
+import time
+
 from pubnub.callbacks import SubscribeCallback
 from pubnub.pnconfiguration import PNConfiguration
 from pubnub.pubnub import PubNub
@@ -65,7 +67,11 @@ class MySubscribeCallback(SubscribeCallback):
     def status(self, pubnub, status):
         pass
     def message(self, pubnub, mesage):
-        print (Style.BRIGHT + Back.BLACK + Fore.YELLOW +"\n[+] Response from server: " +Style.BRIGHT + Back.BLACK + Fore.GREEN + mesage.message)
+        print (Style.RESET_ALL+Style.BRIGHT +"\n-------------------------------------------------------"
+               +Style.BRIGHT + Back.BLUE + Fore.WHITE +"\n[+] Response from server:"
+               +Style.RESET_ALL +Style.BRIGHT + Fore.GREEN +" "+mesage.message+Style.RESET_ALL)
+        print(Style.RESET_ALL + Style.BRIGHT + "\n-------------------------------------------------------")
+
 
 pubnub.add_listener(MySubscribeCallback())
 pubnub.subscribe().channels("chan-1").execute()
@@ -77,12 +83,18 @@ def sender():
 def write(pkt):
     if pkt.haslayer(http.HTTPRequest):
         ## publish a request and get response
+        print(Style.BRIGHT + Fore.YELLOW + "\n[!] Request generated -- "+Style.RESET_ALL+Style.BRIGHT +str(pkt))
+        print(Style.BRIGHT + Fore.YELLOW +"\n[*] Encoding text into image")
         imgbytes = (lsb.encode_convert_img2byte(bytes(pkt))) # encoding packet into image
+        print(Style.BRIGHT + Fore.YELLOW + "[*] Encrypting image pixels")
         encryptedMsg = encrypt_AES_GCM(imgbytes, secretKey) # encrypting image pixels
+        print(Style.BRIGHT + Fore.YELLOW + "[*] Changing bases")
         bytetogether = b''.join(encryptedMsg)
         strng = base64.b64encode(bytetogether)  # changing to base-64
         msg = str(strng)
-        print(Style.BRIGHT + Back.YELLOW + Fore.RED +"\n[-] Sending request -- "+Style.BRIGHT + Back.BLACK + Fore.WHITE+msg)
+        print(Style.BRIGHT + Back.YELLOW + Fore.RED +"\n[-] Sending request :"
+              +Style.RESET_ALL+Style.BRIGHT + Fore.CYAN +" "+msg)
         pubnub.publish().channel("chan-1").message(msg).pn_async(my_publish_callback)
+
 
 sender()
