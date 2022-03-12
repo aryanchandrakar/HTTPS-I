@@ -19,8 +19,8 @@ print(Style.BRIGHT + Back.BLACK + Fore.RED +"-- Server Log -- ")
 # ******************** configuring communication channel ********************
 pnconfig = PNConfiguration()
 
-pnconfig.publish_key = 'pub-c-50be4c1f-64fc-44c1-949a-a156ae6e83d8'
-pnconfig.subscribe_key = 'sub-c-0fcf10c8-8ade-11ec-9f2b-a2cedba671e8'
+pnconfig.publish_key = 'add_your_key_here' # use keyset used in server.py here
+pnconfig.subscribe_key = 'add_your_key_here' # use keyset used in server.py here
 pnconfig.uuid = 'myUniqueUUID'
 pnconfig.ssl = True
 
