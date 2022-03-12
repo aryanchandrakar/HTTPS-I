@@ -85,7 +85,6 @@ class MySubscribeCallback(SubscribeCallback):
             msg=message.message
             print(Style.BRIGHT +Back.YELLOW+ Fore.RED + "\n[!] Request received :"
                   +Style.RESET_ALL+Style.BRIGHT + Fore.CYAN + " "+msg+Style.RESET_ALL)
-            print(Style.RESET_ALL)
 
             msgbyte = msg.encode()  # utf-8 str to byte
             msgback = msgbyte[2:1070]  # slicing byte
