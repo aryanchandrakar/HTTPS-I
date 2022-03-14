@@ -178,7 +178,7 @@ def command(cmd,str):
 def encode_convert_img2byte(msg):
     command("encode",msg)
     img=Image.open(r"oup.png")
-    byts = img.tobytes("raw", "RGB")  # 8x8 white & black images
+    byts = img.tobytes("raw", "RGB") 
     return byts
 
 def convert_decode_byte2img(byts):
