@@ -108,8 +108,7 @@ class MySubscribeCallback(SubscribeCallback):
 
             response=self.get_url(scapy.Ether(msgdecode)) # call fetching url function
             self.send_response(str(response)) # sending response
-
-
+            
         except Exception:
             pass
 
