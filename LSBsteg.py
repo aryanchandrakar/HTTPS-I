@@ -1,18 +1,5 @@
 #!/usr/bin/env python
 # coding:UTF-8
-"""LSBSteg.py
-
-Usage:
-  LSBSteg.py encode -i <input> -o <output> -f <file>
-  LSBSteg.py decode -i <input> -o <output>
-
-Options:
-  -h, --help                Show this help
-  --version                 Show the version
-  -f,--file=<file>          File to hide
-  -i,--in=<input>           Input image (carrier)
-  -o,--out=<output>         Output image (or extracted file)
-"""
 
 import cv2
 import docopt
@@ -204,10 +191,3 @@ def convert_decode_byte2img(byts):
     packet_data = command("decode", imgsaved)
     return packet_data
 
-
-# command("decode","")
-# command("encode","")
-# msg= b"RT\x00\x125\x00\x08\x00'Y\xfb\xfa\x08\x00E\x00\x02\x07\x8b\xf1@\x00@\x06{\t\n\x00\x02\x0f,\xe4\xf9\x03\xa8L\x00P:\xef\xe2/\x00\x02-CP\x18\xf5<3\xf0\x00\x00POST /userinfo.php HTTP/1.1\r\nHost: testphp.vulnweb.com\r\nUser-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nAccept-Encoding: gzip, deflate\r\nReferer: http://testphp.vulnweb.com/login.php\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 23\r\nDNT: 1\r\nConnection: keep-alive\r\nUpgrade-Insecure-Requests: 1\r\n\r\nuname=aryan&pass=qwerty"
-# byts=(encode_convert_img2byte(msg))
-# print(byts)
-# print(convert_decode_byte2img(byts))
