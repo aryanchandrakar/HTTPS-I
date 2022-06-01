@@ -1,6 +1,9 @@
 # HTTPS-I
 ## Image Protected Hypertext Transfer Protocol - Secure
 
+_(by - Aryan Chandrakar **18BCI0174**)_
+
+
 The currently used HTTPS communication protocols is called the secure version of HTTP using the SSL certificates, which on itself relies on Diffie-Hellman key exchange, making the bypassing of the same pretty easy as shown in implementation. Few of the top websites having a high request percentage on daily basis have started using HSTS where the website is forced to interact over HTTPS connections helping them from the downgrade attack, still these websites are vulnerable to spoof attack, with adversary personifying themselves as the legitimate website and stealing the sensitive information, the solution to which is discussed in upcoming part. The HTTPS-I protocol works to solve the issue, in addition to not allowing attacks like cookie theft, session hijack and MITM attacks. The structure of the protocol is quite simple yet costing for the sender and receiver on the processing side. It requires a bit more of computation when compared to HTTPS but offers a better front for safety of the user. It does the same by introducing the option of not just encrypting the content like the one being done in HTTPS but also hiding the content from the plain sight, with no proof of data being shared between the users, instead just a few random bytes which even if compromised has no way of telling what the byte represents nor what does the representation contains.
 
 ![image](https://user-images.githubusercontent.com/49098125/171038124-42ba78f2-7b61-48ad-b831-1628f08ff010.png)
